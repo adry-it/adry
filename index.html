@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Adry — Salone di bellezza, estetica e parrucchiere a Muggiò</title>
+<meta name="description" content="Adry, il tuo salone di bellezza a Muggiò: estetica, trattamenti viso e corpo, parrucchiere. Prenota il tuo appuntamento in un click su WhatsApp.">
+<meta name="theme-color" content="#f6ecdd">
+<meta property="og:title" content="Adry — Il tuo salone di bellezza">
+<meta property="og:description" content="Estetica e parrucchiere a Muggiò. Prenota online via WhatsApp.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:image" content="assets/locandina.jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BeautySalon","name":"Adry","description":"Salone di bellezza: estetica, depilazione laser e parrucchiere","sameAs":["https://www.instagram.com/adry_beauty/"],"telephone":"+39-333-6578268","address":{"@type":"PostalAddress","streetAddress":"Via Primo Maggio, 9/A","addressLocality":"Muggiò","addressCountry":"IT"},"geo":{"@type":"GeoCoordinates","latitude":45.593909,"longitude":9.231725}}
+</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></symbol>
+  <symbol id="i-face" viewBox="0 0 24 24"><path d="M12 3c-3 0-5 2.3-5 5.5 0 4 2 8.5 5 10.5 3-2 5-6.500 5-10.500C17 5.300 15 3 12 3z M9 9.500c.7.5 1.300.5 2 0 M13 9.500c.7.5 1.300.5 2 0 M10 14c1.200.8 2.800.8 4 0"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3C9 8 6 11 6 15a6 6 0 0 0 12 0c0-4-3-7-6-12z"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19C5 10 10 5 20 4c0 10-5 15-14 15z M5 19l8-8"/></symbol>
+  <symbol id="i-lotus" viewBox="0 0 24 24"><path d="M12 5c2 2 3 4 3 7s-1 5-3 7c-2-2-3-4-3-7s1-5 3-7z M3 9c4 0 7 2 9 10 M21 9c-4 0-7 2-9 10"/></symbol>
+  <symbol id="i-scissors" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.500"/><circle cx="6" cy="18" r="2.500"/><path d="M8 7.500L20 18 M8 16.500L20 6"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.600 15L2 22l5.200-1.400A10 10 0 1 0 12 2zm5.200 14.200c-.2.600-1.300 1.200-1.800 1.200-.5.100-1 .2-3.300-.7-2.800-1.200-4.600-4-4.700-4.200-.1-.2-1.100-1.500-1.100-2.800s.7-2 1-2.300c.2-.3.500-.3.700-.3h.5c.2 0 .4 0 .6.500l.8 2c.1.200.1.300 0 .5l-.4.600c-.1.200-.3.300-.1.600.9 1.500 2 2.200 3.200 2.800.3.100.5.100.6-.1l.9-1.100c.2-.2.400-.2.600-.1l1.900.9c.3.100.5.200.5.300.1.200.1.800-.1 1.300z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 22s7-6.500 7-12a7 7 0 0 0-14 0c0 5.500 7 12 7 12z"/><circle cx="12" cy="10" r="2.500"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.500 1.500a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="9" width="18" height="12" rx="1"/><path d="M12 9v12 M3 13h18 M12 9C9 9 7 7.500 7.500 5.500 8.500 3 12 6 12 9c0-3 3.500-6 4.500-3.500C17 7.500 15 9 12 9z"/></symbol>
+</defs></svg>
+
+<div id="intro" aria-hidden="true">
+  <div class="intro-in"><span class="logo-script" id="introLogo">Adry</span><small>il tuo salone di bellezza</small></div>
+</div>
+
+<div id="progress"></div>
+<canvas id="sparkles" aria-hidden="true"></canvas>
+<div id="cursor" aria-hidden="true"></div>
+<a class="skip" href="#servizi">Salta al contenuto</a>
+
+<header class="hdr" id="hdr">
+  <div class="hdr-in">
+    <a class="brand" href="#hero" aria-label="Adry — home"><span class="logo-script">Adry</span></a>
+    <nav class="nav" aria-label="Menu principale">
+      <a href="#servizi">Servizi</a>
+      <a href="#prodotti">Prodotti</a>
+      <a href="#consiglio">Il tuo rituale</a>
+      <a href="#promo">Promo</a>
+      <a href="#prenota">Prenota</a>
+      <a href="#dove">Dove siamo</a>
+      <a class="cta magnetic" href="#prenota">Prenota ora</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Apri menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span></button>
+  </div>
+</header>
+<div class="drawer" id="drawer" aria-hidden="true">
+  <a href="#servizi">Servizi</a><a href="#prodotti">Prodotti</a><a href="#consiglio">Il tuo rituale</a><a href="#promo">Promo</a><a href="#prenota">Prenota</a><a href="#regalo">Buono regalo</a><a href="#partner">Partnership</a><a href="#dove">Dove siamo</a>
+</div>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="petals" aria-hidden="true"></div>
+    <div class="wrap hero-grid">
+      <div class="hero-txt">
+        <p class="kick rv"><span class="dot"></span><span id="openNow">Benvenuta da Adry</span></p>
+        <h1 class="split" id="h1" aria-label="Prenditi cura di te, con calma.">Prenditi cura di te, <em>con calma.</em></h1>
+        <p class="lead rv" style="--i:4">Estetica e parrucchiere nel cuore di Muggiò. Trattamenti su misura, mani esperte e un'atmosfera che ti fa staccare la spina.</p>
+        <div class="cta-row rv" style="--i:5">
+          <a class="btn solid magnetic" href="#prenota">Prenota il tuo momento
+            <svg class="ic"><use href="#i-sparkle"/></svg></a>
+          <a class="btn ghost magnetic" href="#servizi">Scopri i servizi</a>
+        </div>
+        <div class="stats rv" style="--i:6">
+          <div><b data-count="2">0</b><span>Mondi di bellezza<br>estetica &amp; capelli</span></div>
+          <div><b data-count="10" data-suffix="+">0</b><span>Trattamenti<br>su misura</span></div>
+          <div><b data-count="100" data-suffix="%">0</b><span>Cura<br>per ogni cliente</span></div>
+        </div>
+      </div>
+      <div class="hero-vis rv" style="--i:2" id="hv">
+        <div class="ring r1" id="r1"><img src="assets/foto1.jpeg" alt="Massaggio viso rilassante con candele" width="340" height="340"></div>
+        <div class="ring r2" id="r2"><img src="assets/foto2.jpeg" alt="Trattamento schiena rilassante" width="340" height="340"></div>
+        <div class="orb o1"></div><div class="orb o2"></div>
+        <div class="badge" aria-hidden="true">
+          <svg viewBox="0 0 120 120"><defs><path id="circ" d="M60 60m-48 0a48 48 0 1 1 96 0a48 48 0 1 1-96 0"/></defs><text><textPath href="#circ">Estetica • Parrucchiere • Benessere • </textPath></text></svg>
+          <i class="logo-script">A</i>
+        </div>
+      </div>
+    </div>
+    <a class="scroll-cue" href="#servizi">Scorri</a>
+  </section>
+
+  <div class="marq" aria-hidden="true"><div class="marq-t">
+    <span>Pulizia viso</span><span>Scrub corpo</span><span>Massaggi</span><span>Laser diodo 808</span><span>Ceretta</span><span>Manicure</span><span>Taglio &amp; piega</span><span>Colore</span><span>Trattamenti capelli</span><span>Acconciature</span><span>Linea Lyca</span>
+    <span>Pulizia viso</span><span>Scrub corpo</span><span>Massaggi</span><span>Laser diodo 808</span><span>Ceretta</span><span>Manicure</span><span>Taglio &amp; piega</span><span>Colore</span><span>Trattamenti capelli</span><span>Acconciature</span><span>Linea Lyca</span>
+  </div></div>
+
+  <!-- SERVIZI -->
+  <section class="sec" id="servizi">
+    <div class="wrap">
+      <p class="kick rv"><b>01</b> I nostri servizi</p>
+      <h2 class="rv" style="--i:1">Due mondi, <em>un solo salone</em></h2>
+      <div class="tabs rv" role="tablist" aria-label="Categoria servizi" style="--i:2">
+        <button role="tab" class="on" data-cat="tutti" aria-selected="true">Tutti</button>
+        <button role="tab" data-cat="estetica" aria-selected="false">Estetica</button>
+        <button role="tab" data-cat="parrucchiere" aria-selected="false">Parrucchiere</button>
+        <i class="tab-ink"></i>
+      </div>
+      <div class="grid" id="svcGrid"></div>
+    </div>
+  </section>
+
+  <!-- PRODOTTI -->
+  <section class="sec" id="prodotti">
+    <div class="wrap">
+      <p class="kick rv"><b>02</b> Prodotti</p>
+      <h2 class="rv" style="--i:1">La linea <em>Lyca</em>, creata da noi</h2>
+      <p class="lead rv" style="--i:2">Oltre ai trattamenti, da Adry trovi <strong>Lyca</strong>, la nostra linea di prodotti, e una selezione di prodotti professionali per estetica e capelli scelti da noi.</p>
+      <div class="lyca rv" style="--i:3">
+        <div class="lyca-hero">
+          <span class="logo-script">Lyca</span>
+          <small>La linea Adry</small>
+          <p>Formule pensate per prolungare a casa l'effetto dei trattamenti in salone.</p>
+          <a class="btn solid magnetic" id="lycaAsk" href="#" target="_blank" rel="noopener"><svg class="ic"><use href="#i-wa"/></svg>Chiedi della linea Lyca</a>
+        </div>
+        <div class="pgrid" id="lycaGrid"></div>
+      </div>
+      <h3 class="sub rv">Selezione professionale</h3>
+      <div class="tabs rv" role="tablist" aria-label="Categoria prodotti">
+        <button role="tab" class="on" data-pcat="tutti" aria-selected="true">Tutti</button>
+        <button role="tab" data-pcat="estetica" aria-selected="false">Estetica</button>
+        <button role="tab" data-pcat="capelli" aria-selected="false">Capelli</button>
+        <i class="tab-ink"></i>
+      </div>
+      <div class="pgrid" id="proGrid"></div>
+      <p class="mut rv note">Disponibilità e prezzi in salone o su WhatsApp. Ti consigliamo il prodotto giusto per la tua pelle e i tuoi capelli.</p>
+    </div>
+  </section>
+
+  <!-- RITUALE / QUIZ -->
+  <section class="sec dark" id="consiglio">
+    <div class="wrap narrow">
+      <p class="kick rv"><b>03</b> Il tuo rituale</p>
+      <h2 class="rv" style="--i:1">Non sai cosa scegliere? <em>Te lo consigliamo noi.</em></h2>
+      <div class="quiz rv" id="quiz" style="--i:2">
+        <div class="quiz-bar"><i id="quizBar"></i></div>
+        <div class="quiz-body" id="quizBody"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROMO -->
+  <section class="sec promo" id="promo">
+    <div class="wrap promo-grid">
+      <div class="promo-card rv tilt" id="promoCard">
+        <img src="assets/locandina.jpeg" alt="Locandina promo Nuova Stagione: pulizia viso e scrub corpo a 90 euro" loading="lazy" width="1024" height="1536">
+        <div class="shine"></div>
+      </div>
+      <div class="promo-txt">
+        <p class="kick rv"><b>04</b> Promo di stagione</p>
+        <h2 class="rv" style="--i:1">Preparati alla <em>nuova stagione</em></h2>
+        <p class="lead rv" style="--i:2">Due trattamenti fondamentali in un'unica seduta: <strong>pulizia viso</strong> per rigenerare e illuminare, <strong>scrub corpo</strong> per eliminare le cellule morte e rinnovare la pelle.</p>
+        <div class="price rv" style="--i:3"><small>a soli</small><b>90<span>€</span></b></div>
+        <ul class="perks rv" style="--i:4">
+          <li><svg class="ic"><use href="#i-sparkle"/></svg>Pelle più luminosa</li>
+          <li><svg class="ic"><use href="#i-drop"/></svg>Elimina le cellule morte</li>
+          <li><svg class="ic"><use href="#i-leaf"/></svg>Rinnova e ossigena</li>
+          <li><svg class="ic"><use href="#i-lotus"/></svg>Rilassa corpo e mente</li>
+        </ul>
+        <div class="count rv" style="--i:5" id="countdown" aria-live="off"></div>
+        <a class="btn solid magnetic rv" style="--i:6" href="#prenota" data-pick="promo">Voglio la promo
+          <svg class="ic"><use href="#i-sparkle"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRENOTA -->
+  <section class="sec" id="prenota">
+    <div class="wrap">
+      <p class="kick rv"><b>05</b> Prenota</p>
+      <h2 class="rv" style="--i:1">Scegli giorno e ora, <em>al resto pensiamo noi</em></h2>
+      <p class="lead rv" style="--i:2">Seleziona il servizio, il giorno e l'orario: ti prepariamo il messaggio e si apre WhatsApp. Ti confermiamo l'appuntamento appena lo leggiamo.</p>
+      <div class="book rv" style="--i:3">
+        <ol class="steps" id="steps"><li class="on">Servizio</li><li>Data</li><li>Orario</li><li>Invia</li></ol>
+        <div class="book-grid">
+          <div class="book-main">
+            <div class="pane on" data-pane="0">
+              <h3>1 · Che trattamento desideri?</h3>
+              <div class="chips" id="bkServices"></div>
+            </div>
+            <div class="pane" data-pane="1">
+              <h3>2 · In che giorno?</h3>
+              <div class="cal">
+                <div class="cal-h"><button type="button" id="calPrev" aria-label="Mese precedente">‹</button><b id="calTitle"></b><button type="button" id="calNext" aria-label="Mese successivo">›</button></div>
+                <div class="cal-w"><span>Lun</span><span>Mar</span><span>Mer</span><span>Gio</span><span>Ven</span><span>Sab</span><span>Dom</span></div>
+                <div class="cal-g" id="calGrid"></div>
+              </div>
+            </div>
+            <div class="pane" data-pane="2">
+              <h3>3 · A che ora?</h3>
+              <p class="mut" id="slotsDay"></p>
+              <div class="slots" id="slots"></div>
+            </div>
+            <div class="pane" data-pane="3">
+              <h3>4 · Ultimi dettagli</h3>
+              <label class="fld">Il tuo nome<input id="bkName" type="text" autocomplete="given-name" placeholder="Es. Giulia"></label>
+              <label class="fld">Note (facoltative)<textarea id="bkNote" rows="3" placeholder="Allergie, richieste particolari…"></textarea></label>
+            </div>
+            <div class="book-nav">
+              <button type="button" class="btn ghost" id="bkBack" hidden>Indietro</button>
+              <button type="button" class="btn solid" id="bkNext" disabled>Avanti</button>
+            </div>
+          </div>
+          <aside class="summary" aria-live="polite">
+            <h4>Il tuo appuntamento</h4>
+            <dl>
+              <dt>Servizio</dt><dd id="sumSvc">—</dd>
+              <dt>Giorno</dt><dd id="sumDay">—</dd>
+              <dt>Orario</dt><dd id="sumTime">—</dd>
+            </dl>
+            <a class="btn wa" id="bkSend" href="#" target="_blank" rel="noopener" aria-disabled="true"><svg class="ic"><use href="#i-wa"/></svg>Invia su WhatsApp</a>
+            <small>Non è ancora una conferma: ti risponderemo su WhatsApp per confermare data e ora.</small>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REGALO -->
+  <section class="sec gift" id="regalo">
+    <div class="wrap narrow">
+      <p class="kick rv"><b>06</b> Regala bellezza</p>
+      <h2 class="rv" style="--i:1">Un buono regalo <em>da scartare</em></h2>
+      <div class="giftbox rv" style="--i:2">
+        <div class="voucher" id="voucher">
+          <span class="logo-script">Adry</span>
+          <small>Buono regalo</small>
+          <b id="vAmount">50 €</b>
+          <i id="vTo">per una persona speciale</i>
+        </div>
+        <div class="giftform">
+          <div class="chips" id="vChips"><button type="button" data-v="30">30 €</button><button type="button" class="on" data-v="50">50 €</button><button type="button" data-v="90">90 €</button><button type="button" data-v="120">120 €</button></div>
+          <label class="fld">Per chi è?<input id="vName" type="text" placeholder="Es. Mamma"></label>
+          <a class="btn solid magnetic" id="vSend" href="#" target="_blank" rel="noopener"><svg class="ic"><use href="#i-gift"/></svg>Richiedilo su WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERSHIP -->
+  <section class="sec partner" id="partner">
+    <div class="wrap">
+      <p class="kick rv"><b>07</b> Partnership</p>
+      <h2 class="rv" style="--i:1">Insieme a <em>Lunara</em></h2>
+      <div class="pt rv" style="--i:2">
+        <div class="pt-logos" aria-hidden="true">
+          <span class="logo-script">Adry</span>
+          <i>×</i>
+          <span class="logo-script lunara">Lunara</span>
+        </div>
+        <div class="pt-txt">
+          <p class="lead" style="margin-top:0">Bellezza e atmosfera vanno a braccetto. Lunara crea candele artigianali italiane in cera naturale con fragranze selezionate: il tocco perfetto per prolungare a casa il relax di un trattamento da Adry.</p>
+          <a class="btn solid magnetic" id="partnerLink" href="#" target="_blank" rel="noopener">Scopri le candele Lunara <svg class="ic"><use href="#i-sparkle"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOVE -->
+  <section class="sec" id="dove">
+    <div class="wrap">
+      <p class="kick rv"><b>08</b> Dove siamo</p>
+      <h2 class="rv" style="--i:1">Vieni a <em>trovarci</em></h2>
+      <div class="where">
+        <div class="where-info rv" style="--i:2">
+          <a class="row" href="https://maps.app.goo.gl/JK6FDJvfU5kPSqdN7" target="_blank" rel="noopener"><svg class="ic"><use href="#i-pin"/></svg><span><b>Adry — Il tuo salone di bellezza</b>Via Primo Maggio, 9/A<br>Muggiò (MB)</span></a>
+          <a class="row" href="tel:+393336578268"><svg class="ic"><use href="#i-phone"/></svg><span><b>Chiamaci</b>333 6578268</span></a>
+          <a class="row" href="https://www.instagram.com/adry_beauty/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-sparkle"/></svg><span><b>Instagram</b>@adry_beauty</span></a>
+          <a class="row" id="waRow" href="#" target="_blank" rel="noopener"><svg class="ic"><use href="#i-wa"/></svg><span><b>Scrivici su WhatsApp</b>Risposta appena possibile</span></a>
+          <div class="hours" id="hours"></div>
+          <a class="btn ghost magnetic" href="https://www.google.com/maps/dir/?api=1&destination=45.593909,9.231725" target="_blank" rel="noopener">Indicazioni stradali</a>
+          <a class="btn ghost magnetic" href="https://maps.app.goo.gl/JK6FDJvfU5kPSqdN7" target="_blank" rel="noopener">Leggi le recensioni su Google</a>
+        </div>
+        <div class="map rv" style="--i:3">
+          <iframe title="Mappa Adry" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=45.593909,9.231725&z=16&output=embed"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <span class="logo-script">Adry</span>
+  <p>Adry Beauty · Il tuo salone di bellezza · Via Primo Maggio, 9/A · Muggiò</p>
+  <p><a href="https://www.instagram.com/adry_beauty/" target="_blank" rel="noopener">@adry_beauty su Instagram</a></p>
+  <p class="mut">© <span id="yr"></span> Adry. Tutti i diritti riservati.</p>
+</footer>
+
+<a class="fab" id="fab" href="#" target="_blank" rel="noopener" aria-label="Scrivici su WhatsApp"><svg class="ic"><use href="#i-wa"/></svg><span>Prenota</span></a>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
