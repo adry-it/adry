@@ -402,6 +402,8 @@ em{font-style:italic;font-weight:500;background:linear-gradient(100deg,var(--win
 .pcard.product-compact:hover{transform:translateY(-4px);box-shadow:0 24px 44px -28px rgba(74,4,9,.4)}
 .product-compact .pc-body{padding:20px;display:flex;flex-direction:column;gap:12px;min-height:170px}
 .product-labels{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.product-labels .tag{font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:99px;background:var(--g1);color:#fff}
+.product-labels .tag.off{background:#8a8a82}
 .product-compact .pc-cat{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut)}
 .product-compact h4{font:600 clamp(20px,2vw,25px)/1.12 var(--f-serif);min-height:2.2em}
 .product-detail-link{text-align:left;color:var(--ink);text-decoration:underline;text-decoration-color:rgba(122,12,20,.25);text-underline-offset:4px}
