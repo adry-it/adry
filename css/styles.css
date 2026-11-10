@@ -435,5 +435,6 @@ em{font-style:italic;font-weight:500;background:linear-gradient(100deg,var(--win
   .product-compact h4{font-size:19px}
   .product-compact .pc-foot{align-items:flex-start;flex-direction:column}
   .product-compact .add{width:100%;justify-content:center}
+  .product-compact .add span{display:inline}
   .product-detail-content .pc-foot{flex-direction:row;align-items:center}
 }
