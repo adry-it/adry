@@ -2,8 +2,8 @@
 # Accesso: account GitHub con permesso di scrittura sul repository.
 backend:
   name: github
-  repo: DA-CAMBIARE/adry      # <-- utente/repository GitHub del sito
-  branch: main
+  repo: adry-it/adry
+  branch: master
 
 locale: it
 
