@@ -1,0 +1,77 @@
+{
+  "items": [
+    {
+      "id": "promo",
+      "cat": "estetica",
+      "name": "Pulizia viso + Scrub corpo",
+      "desc": "Il pacchetto Nuova Stagione: rigenera e illumina il viso, rinnova la pelle del corpo. Unica seduta.",
+      "price": "90 €",
+      "promo": true,
+      "icon": "sparkle"
+    },
+    {
+      "id": "pulizia",
+      "cat": "estetica",
+      "name": "Pulizia viso",
+      "desc": "Detersione profonda, vapore e maschera per una pelle luminosa e purificata.",
+      "icon": "face"
+    },
+    {
+      "id": "scrub",
+      "cat": "estetica",
+      "name": "Scrub corpo",
+      "desc": "Elimina le cellule morte e ossigena la pelle, lasciandola setosa.",
+      "icon": "drop"
+    },
+    {
+      "id": "massaggio",
+      "cat": "estetica",
+      "name": "Massaggio rilassante",
+      "desc": "Manualità lente e oli caldi per sciogliere tensioni di corpo e mente.",
+      "icon": "lotus"
+    },
+    {
+      "id": "laser",
+      "cat": "estetica",
+      "name": "Depilazione laser diodo 808",
+      "desc": "Consulenza con la tecnica specializzata, prova gratuita su una piccola zona e preventivo personalizzato. Pelle liscia, sempre.",
+      "badge": "Prova gratuita",
+      "icon": "sparkle"
+    },
+    {
+      "id": "ceretta",
+      "cat": "estetica",
+      "name": "Ceretta",
+      "desc": "Epilazione delicata, anche con cere ipoallergeniche per pelli sensibili.",
+      "icon": "leaf"
+    },
+    {
+      "id": "manicure",
+      "cat": "estetica",
+      "name": "Manicure & pedicure",
+      "desc": "Cura di mani e piedi, smalto classico o semipermanente.",
+      "icon": "sparkle"
+    },
+    {
+      "id": "taglio",
+      "cat": "parrucchiere",
+      "name": "Taglio & piega",
+      "desc": "Consulenza sul taglio più adatto al tuo viso e al tuo stile.",
+      "icon": "scissors"
+    },
+    {
+      "id": "colore",
+      "cat": "parrucchiere",
+      "name": "Colore & riflessi",
+      "desc": "Tinta, colpi di sole e sfumature su misura, con prodotti che rispettano il capello.",
+      "icon": "drop"
+    },
+    {
+      "id": "trattamento",
+      "cat": "parrucchiere",
+      "name": "Trattamento ristrutturante",
+      "desc": "Nutre e ripara i capelli spenti o stressati, per più luce e morbidezza.",
+      "icon": "leaf"
+    }
+  ]
+}
