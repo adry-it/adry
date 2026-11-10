@@ -62,6 +62,38 @@ collections:
                 multiple: true
                 required: false
 
+
+  - name: services
+    label: Servizi
+    files:
+      - name: catalog
+        label: Catalogo servizi
+        file: /data/services.json
+        format: json
+        fields:
+          - label: Elenco servizi (trascina per cambiare l'ordine)
+            name: items
+            widget: list
+            label_singular: servizio
+            summary: "{{fields.name}} — {{fields.cat}}"
+            fields:
+              - { label: Codice interno, name: id, widget: string }
+              - { label: Nome servizio, name: name, widget: string }
+              - label: Reparto
+                name: cat
+                widget: select
+                options:
+                  - { label: Estetica, value: estetica }
+                  - { label: Parrucchiera, value: parrucchiere }
+              - { label: Descrizione, name: desc, widget: text }
+              - { label: Prezzo (facoltativo), name: price, widget: string, required: false }
+              - { label: Etichetta (facoltativa), name: badge, widget: string, required: false }
+              - { label: Evidenzia come promo, name: promo, widget: boolean, default: false, required: false }
+              - label: Icona
+                name: icon
+                widget: select
+                options: [sparkle, face, drop, lotus, leaf, scissors]
+
   - name: categories
     label: Categorie
     label_singular: categoria
