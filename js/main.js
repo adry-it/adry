@@ -169,7 +169,7 @@
       <h3>${esc(s.name)}</h3>
       <p>${esc(s.desc)}</p>
       ${s.price ? `<span class="pr">${esc(s.price)}</span>` : ''}
-      <a class="bk" href="#prenota" data-pick="${s.id}">Prenota</a>
+      ${s.id !== 'acconciatura' ? `<a class="bk" href="#prenota" data-pick="${s.id}">Prenota</a>` : ''}
     </article>`).join('');
   $$('.card', grid).forEach(c => tiltOn(c, 6));
   initTabs($('.tabs[aria-label="Categoria servizi"]'), 'cat', cat => {
@@ -297,7 +297,7 @@
     if (qi >= QS.length) {
       const key = ans[0], r = RES[key] || RES.relax;
       let extra = '';
-      if (ans[2] === 'evento') extra = ' Per l’occasione aggiungi una piega o un’acconciatura da cerimonia.';
+      if (ans[2] === 'evento') extra = ' Per l’occasione possiamo consigliarti una piega adatta all’evento.';
       if (ans[1] === 'poco' && key === 'pelle') extra += ' (Ti serve un po’ più di un’ora: prenota senza fretta.)';
       qbar.style.width = '100%';
       qb.innerHTML = `<div class="qres"><p style="margin:0;letter-spacing:.3em;text-transform:uppercase;font-size:12px">Il tuo rituale ideale</p><div class="rname">${esc(r[0])}</div><p>${esc(r[1] + extra)}</p><div class="row"><a class="btn solid" href="#prenota" data-pick="${r[2]}">Prenota questo</a><button class="btn ghost" id="qAgain" type="button">Rifai il quiz</button></div></div>`;
@@ -335,7 +335,7 @@
   /* ===== PRENOTAZIONE ===== */
   const st = { svc: null, date: null, time: null, step: 0 };
   const bkS = $('#bkServices');
-  bkS.innerHTML = ['estetica', 'parrucchiere'].map(cat => `<span class="grp">${cat}</span>` + C.services.filter(s => s.cat === cat).map(s => `<button type="button" data-id="${s.id}">${esc(s.name)}</button>`).join('')).join('');
+  bkS.innerHTML = ['estetica', 'parrucchiere'].map(cat => `<span class="grp">${cat}</span>` + C.services.filter(s => s.cat === cat && s.id !== 'acconciatura').map(s => `<button type="button" data-id="${s.id}">${esc(s.name)}</button>`).join('')).join('');
   const svcById = id => C.services.find(s => s.id === id);
   function pickSvc(id) {
     st.svc = svcById(id) || null;
