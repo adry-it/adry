@@ -65,6 +65,17 @@
       "is_new": false,
       "available": true,
       "images": []
+    },
+    {
+      "id": "burro-cacao-idratante-labbra-spf-10",
+      "name": "Burro cacao idratante labbra SPF 10",
+      "category": "Viso",
+      "size": "Confezioni oro, argento e rosa metallizzato",
+      "description": "Burro cacao idratante con SPF 10, per labbra morbide e curate. Disponibile in tre confezioni metallizzate: oro, argento e rosa.",
+      "price": 6,
+      "is_new": true,
+      "available": true,
+      "images": []
     }
   ]
 }
