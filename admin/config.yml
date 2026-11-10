@@ -1,0 +1,51 @@
+# Gestione prodotti Lyca (Sveltia CMS) — si apre da <sito>/admin/ anche da telefono.
+# Accesso: account GitHub con permesso di scrittura sul repository.
+backend:
+  name: github
+  repo: DA-CAMBIARE/adry      # <-- utente/repository GitHub del sito
+  branch: main
+
+locale: it
+
+# Foto caricate dal telefono: ridimensionate e convertite in WebP
+media_folder: /assets/images/lyca
+public_folder: assets/images/lyca
+media_libraries:
+  default:
+    config:
+      slugify_filename: true
+      transformations:
+        raster_image:
+          format: webp
+          quality: 80
+          width: 1000
+          height: 1000
+
+collections:
+  - name: catalogo
+    label: Prodotti Lyca
+    files:
+      - name: lyca
+        label: Catalogo
+        file: /data/lyca.json
+        format: json
+        fields:
+          - label: Prodotti (trascina per cambiare l'ordine)
+            name: items
+            widget: list
+            label_singular: prodotto
+            summary: "{{fields.name}} — {{fields.category}}"
+            fields:
+              - { label: Codice interno, name: id, widget: hidden, required: false }
+              - { label: Nome, name: name, widget: string }
+              - { label: Categoria, name: category, widget: select, options: [Viso, Corpo, Capelli, Mani e piedi] }
+              - { label: "Formato (es. 50 ml)", name: size, widget: string, required: false }
+              - { label: Descrizione, name: description, widget: text, required: false }
+              - { label: "Prezzo (€) — vuoto = «Prezzo su richiesta»", name: price, widget: number, value_type: float, min: 0, required: false }
+              - { label: Novità, name: is_new, widget: boolean, default: false }
+              - { label: "Disponibile (spegni se è esaurito)", name: available, widget: boolean, default: true }
+              - label: "Foto (la prima è la copertina)"
+                name: images
+                widget: image
+                multiple: true
+                required: false

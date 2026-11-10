@@ -15,7 +15,6 @@
   /* ===== link WhatsApp generici ===== */
   const hello = 'Ciao Adry! Vorrei qualche informazione.';
   ['fab', 'waRow'].forEach(id => { const a = $('#' + id); if (a) a.href = wa(hello); });
-  $('#lycaAsk').href = wa('Ciao Adry! Vorrei informazioni sulla linea Lyca.');
   $('#partnerLink').href = C.partnerUrl;
   $('#yr').textContent = new Date().getFullYear();
 
@@ -177,12 +176,106 @@
     $$('.card', grid).forEach(c => c.classList.toggle('hide', cat !== 'tutti' && c.dataset.cat !== cat));
   });
 
-  /* ===== prodotti ===== */
-  const card = (p, lyca) => `<div class="pcard" data-cat="${p.cat || ''}"><div class="ico">${icon(p.icon)}</div>${lyca ? '<span class="lyca-t">Linea Lyca</span>' : ''}<h4>${esc(p.name.replace('Lyca — ', ''))}</h4><p>${esc(p.desc)}</p></div>`;
-  $('#lycaGrid').innerHTML = C.lyca.map(p => card(p, true)).join('');
-  $('#proGrid').innerHTML = C.products.map(p => card(p)).join('');
-  initTabs($('.tabs[aria-label="Categoria prodotti"]'), 'pcat', cat => {
-    $$('#proGrid .pcard').forEach(c => c.classList.toggle('hide', cat !== 'tutti' && c.dataset.cat !== cat));
+  /* ===== negozio Lyca + carrello (ordine via WhatsApp) ===== */
+  const eur = n => new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(n);
+  const hasPrice = p => p.price != null && p.price !== '' && !isNaN(Number(p.price));
+  const img0 = p => (p.images && p.images[0]) ? String(p.images[0]).replace(/^\/+/, '') : '';
+  const CAT_ICON = { Viso: 'face', Corpo: 'drop', Capelli: 'scissors', 'Mani e piedi': 'sparkle' };
+  const toast = msg => { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('show'), 2200); };
+  let shop = [], shopCat = 'Tutti';
+  const CART_KEY = 'adry-cart';
+  let cart = {};
+  try { cart = JSON.parse(localStorage.getItem(CART_KEY)) || {}; } catch { cart = {}; }
+  const saveCart = () => { try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch {} };
+  const prodById = id => shop.find(p => p.id === id);
+
+  async function loadShop() {
+    const clean = items => (items || []).filter(p => p && p.name).map(p => ({ ...p, id: p.id || slugify(p.name), category: p.category || 'Altro', available: p.available !== false }));
+    try {
+      const r = await fetch('data/lyca.json', { cache: 'no-cache' }); if (!r.ok) throw 0;
+      return clean((await r.json()).items);
+    } catch { return clean((window.LYCA_FALLBACK || {}).items); }
+  }
+  const slugify = t => String(t).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+  function shopCard(p) {
+    const im = img0(p), out = !p.available, q = cart[p.id] || 0;
+    const price = hasPrice(p) ? `<span class="pc-price">${eur(Number(p.price))}</span>` : '<span class="pc-price ask">Su richiesta</span>';
+    const act = out ? '<button class="add" type="button" disabled>Esaurito</button>'
+      : q ? qtyHtml(p.id, q) : `<button class="add" type="button" data-add="${esc(p.id)}" aria-label="Aggiungi ${esc(p.name)} al carrello">${icon('plus')}<span>Aggiungi</span></button>`;
+    return `<article class="pcard${out ? ' out' : ''}" data-id="${esc(p.id)}">
+      <div class="pc-img">${p.is_new && !out ? '<span class="tag">Novità</span>' : ''}${out ? '<span class="tag off">Esaurito</span>' : ''}${im ? `<img src="${esc(im)}" alt="${esc(p.name)}" loading="lazy" decoding="async">` : icon(CAT_ICON[p.category] || 'leaf')}</div>
+      <div class="pc-body"><span class="pc-cat">${esc(p.category)}</span><h4>${esc(p.name)}</h4>${p.size ? `<span class="pc-size">${esc(p.size)}</span>` : ''}<p>${esc(p.description)}</p>
+        <div class="pc-foot">${price}<span class="pc-act">${act}</span></div></div></article>`;
+  }
+  const qtyHtml = (id, q) => `<span class="qty"><button type="button" data-dec="${esc(id)}" aria-label="Diminuisci">${icon('minus')}</button><b>${q}</b><button type="button" data-inc="${esc(id)}" aria-label="Aumenta">${icon('plus')}</button></span>`;
+
+  function renderShop() {
+    const q = $('#shopSearch').value.trim().toLowerCase();
+    const l = shop.filter(p => (shopCat === 'Tutti' || p.category === shopCat) && (!q || [p.name, p.category, p.description, p.size].some(x => (x || '').toLowerCase().includes(q))));
+    $('#shopGrid').innerHTML = l.length ? l.map(shopCard).join('') : '<div class="empty">Nessun prodotto trovato.</div>';
+  }
+  function renderTabs() {
+    const cats = ['Tutti', ...new Set(shop.map(p => p.category))], box = $('#shopTabs');
+    $$('button', box).forEach(b => b.remove());
+    cats.forEach(c => { const b = document.createElement('button'); b.setAttribute('role', 'tab'); b.dataset.c = c; b.textContent = c; b.className = c === shopCat ? 'on' : ''; b.setAttribute('aria-selected', String(c === shopCat)); box.insertBefore(b, $('.tab-ink', box)); });
+    initTabs(box, 'c', c => { shopCat = c; renderShop(); });
+  }
+
+  /* carrello */
+  const cartEl = $('#cart'), cartOv = $('#cartOv'), cartBtn = $('#cartBtn');
+  const lines = () => Object.entries(cart).map(([id, q]) => ({ p: prodById(id), q })).filter(x => x.p && x.q > 0);
+  function setQty(id, q) {
+    if (q <= 0) delete cart[id]; else cart[id] = Math.min(q, 20);
+    saveCart(); paintCart(); renderShop();
+  }
+  function cartMessage() {
+    const ls = lines(), name = $('#cartName').value.trim();
+    const allPriced = ls.every(x => hasPrice(x.p));
+    const total = ls.reduce((t, x) => t + (hasPrice(x.p) ? Number(x.p.price) * x.q : 0), 0);
+    return [
+      'Ciao Adry! Vorrei ordinare questi prodotti Lyca:', '',
+      ...ls.map(x => `• ${x.q} × ${x.p.name}${x.p.size ? ' (' + x.p.size + ')' : ''}${hasPrice(x.p) ? ' — ' + eur(Number(x.p.price) * x.q) : ''}`), '',
+      total ? `Totale${allPriced ? '' : ' (prodotti con prezzo)'}: ${eur(total)}` : '',
+      name ? `Nome: ${name}` : '',
+      'Ritiro in negozio. Potete confermarmi la disponibilità? Grazie!'
+    ].filter((l, i, a) => l !== '' || (a[i - 1] !== '' && i)).join('\n');
+  }
+  function paintCart() {
+    const ls = lines(), n = ls.reduce((t, x) => t + x.q, 0);
+    cartBtn.hidden = n === 0 && !cartEl.classList.contains('open');
+    $('#cartCount').textContent = n;
+    $('#cartList').innerHTML = ls.length ? ls.map(({ p, q }) => `<div class="ci"><div class="ci-img">${img0(p) ? `<img src="${esc(img0(p))}" alt="">` : icon(CAT_ICON[p.category] || 'leaf')}</div><div><h4>${esc(p.name)}</h4><small>${esc(p.size || p.category)}</small></div><div class="ci-sum">${hasPrice(p) ? eur(Number(p.price) * q) : '—'}</div>${qtyHtml(p.id, q)}</div>`).join('') : '<p class="cart-empty">Il carrello è vuoto.<br>Aggiungi qualche prodotto Lyca!</p>';
+    const total = ls.reduce((t, x) => t + (hasPrice(x.p) ? Number(x.p.price) * x.q : 0), 0), allPriced = ls.every(x => hasPrice(x.p));
+    $('#cartTot').textContent = !ls.length ? '—' : total ? eur(total) + (allPriced ? '' : ' + altro') : 'Su richiesta';
+    const send = $('#cartSend');
+    send.setAttribute('aria-disabled', String(!ls.length));
+    send.href = ls.length ? wa(cartMessage()) : '#';
+    send.onclick = e => { if (!ls.length) e.preventDefault(); else burst(e.clientX, e.clientY, 40); };
+  }
+  function openCart(o) {
+    cartEl.classList.toggle('open', o); cartEl.setAttribute('aria-hidden', String(!o)); cartOv.hidden = !o;
+    document.body.classList.toggle('lock', o); paintCart();
+    if (o) $('#cartX').focus({ preventScroll: true });
+  }
+  cartBtn.onclick = () => openCart(true);
+  $('#cartX').onclick = () => openCart(false);
+  cartOv.onclick = () => openCart(false);
+  $('#cartName').addEventListener('input', paintCart);
+  $('#cartClear').onclick = () => { cart = {}; saveCart(); paintCart(); renderShop(); };
+  addEventListener('keydown', e => { if (e.key === 'Escape' && cartEl.classList.contains('open')) openCart(false); });
+  document.addEventListener('click', e => {
+    const t = e.target, add = t.closest('[data-add]'), inc = t.closest('[data-inc]'), dec = t.closest('[data-dec]');
+    if (add) { const id = add.dataset.add; setQty(id, 1); toast(`${prodById(id).name} aggiunto al carrello`); cartBtn.classList.remove('bump'); void cartBtn.offsetWidth; cartBtn.classList.add('bump'); }
+    else if (inc) setQty(inc.dataset.inc, (cart[inc.dataset.inc] || 0) + 1);
+    else if (dec) setQty(dec.dataset.dec, (cart[dec.dataset.dec] || 0) - 1);
+  });
+  $('#shopSearch').addEventListener('input', renderShop);
+  loadShop().then(items => {
+    shop = items;
+    Object.keys(cart).forEach(id => { if (!prodById(id)) delete cart[id]; });
+    renderTabs(); renderShop(); paintCart();
+    if (!shop.length) $('#shopGrid').innerHTML = '<div class="empty">Presto nuovi prodotti Lyca. Scrivici su WhatsApp per informazioni!</div>';
   });
 
   /* ===== quiz ===== */
@@ -230,12 +323,13 @@
   if (paintCd()) setInterval(paintCd, 1000);
 
   /* ===== orari + aperto ora ===== */
-  const fmtH = v => v ? `${v[0]} – ${v[1]}` : 'Chiuso';
+  const fmtH = v => v ? v.map(r => `${r[0].replace(/^0/, '')} – ${r[1].replace(/^0/, '')}`).join(' · ') : 'Chiuso';
   const order = [1, 2, 3, 4, 5, 6, 0], todayN = new Date().getDay();
   $('#hours').innerHTML = order.map(n => `<div class="${n === todayN ? 'today' : ''}"><span>${DAYS[n][0].toUpperCase() + DAYS[n].slice(1)}</span><span>${fmtH(C.hours[n])}</span></div>`).join('');
   (function openNow() {
-    const now = new Date(), h = C.hours[now.getDay()], t = pad(now.getHours()) + ':' + pad(now.getMinutes());
-    $('#openNow').textContent = h && t >= h[0] && t < h[1] ? `Aperto ora · fino alle ${h[1]}` : 'Benvenuta da Adry';
+    const now = new Date(), h = C.hours[now.getDay()] || [], t = pad(now.getHours()) + ':' + pad(now.getMinutes());
+    const r = h.find(x => t >= x[0] && t < x[1]);
+    $('#openNow').textContent = r ? `Negozio aperto · fino alle ${r[1]}` : 'Benvenuta da Adry';
   })();
 
   /* ===== PRENOTAZIONE ===== */
@@ -258,7 +352,7 @@
   const now0 = new Date(); now0.setHours(0, 0, 0, 0);
   let view = new Date(now0.getFullYear(), now0.getMonth(), 1);
   const maxView = new Date(now0.getFullYear(), now0.getMonth() + 3, 1);
-  const closed = d => !C.hours[d.getDay()] || C.closedDates.includes(iso(d)) || d < now0;
+  const closed = d => !C.hours[d.getDay()] || C.closedDates.includes(iso(d)) || d < now0; // la domenica resta chiusa; estetica e parrucchiere accettano richieste anche fuori orario negozio
   function renderCal() {
     $('#calTitle').textContent = `${MONTHS[view.getMonth()]} ${view.getFullYear()}`;
     $('#calPrev').disabled = view <= new Date(now0.getFullYear(), now0.getMonth(), 1);
@@ -282,9 +376,10 @@
   function renderSlots() {
     const box = $('#slots');
     if (!st.date) { box.innerHTML = ''; $('#slotsDay').textContent = 'Scegli prima un giorno.'; return; }
-    const d = parseD(st.date), [o, c] = C.hours[d.getDay()];
+    const d = parseD(st.date), o = C.bookingFrom, c = C.bookingTo;
     $('#slotsDay').textContent = longDate(st.date);
     const toMin = t => +t.slice(0, 2) * 60 + +t.slice(3), out = [];
+    $('#slotsDay').textContent = longDate(st.date) + ' · orari indicativi, li confermiamo su WhatsApp';
     const isToday = d.getTime() === now0.getTime(), nowMin = new Date().getHours() * 60 + new Date().getMinutes();
     for (let m = toMin(o); m + C.slotMinutes <= toMin(c); m += C.slotMinutes) if (!isToday || m > nowMin + 30) out.push(`${pad(Math.floor(m / 60))}:${pad(m % 60)}`);
     box.innerHTML = out.length ? out.map(t => `<button type="button" data-t="${t}" class="${st.time === t ? 'on' : ''}">${t}</button>`).join('') : '<p class="mut">Nessun orario libero oggi: prova un altro giorno.</p>';

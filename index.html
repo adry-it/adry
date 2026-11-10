@@ -6,6 +6,10 @@
 <title>Adry — Salone di bellezza, estetica e parrucchiere a Muggiò</title>
 <meta name="description" content="Adry, il tuo salone di bellezza a Muggiò: estetica, trattamenti viso e corpo, parrucchiere. Prenota il tuo appuntamento in un click su WhatsApp.">
 <meta name="theme-color" content="#f6ecdd">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <meta property="og:title" content="Adry — Il tuo salone di bellezza">
 <meta property="og:description" content="Estetica e parrucchiere a Muggiò. Prenota online via WhatsApp.">
 <meta property="og:type" content="website">
@@ -16,7 +20,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BeautySalon","name":"Adry","description":"Salone di bellezza: estetica, depilazione laser e parrucchiere","sameAs":["https://www.instagram.com/adry_beauty/"],"telephone":"+39-333-6578268","address":{"@type":"PostalAddress","streetAddress":"Via Primo Maggio, 9/A","addressLocality":"Muggiò","addressCountry":"IT"},"geo":{"@type":"GeoCoordinates","latitude":45.593909,"longitude":9.231725}}
+{"@context":"https://schema.org","@type":"BeautySalon","name":"Adry","description":"Salone di bellezza: estetica, depilazione laser e parrucchiere","sameAs":["https://www.instagram.com/adry_beauty/"],"telephone":"+39-333-6578268","address":{"@type":"PostalAddress","streetAddress":"Via Primo Maggio, 9/A","addressLocality":"Muggiò","addressCountry":"IT"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Friday"],"opens":"09:00","closes":"12:30"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Friday"],"opens":"16:00","closes":"19:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Thursday","Saturday"],"opens":"09:00","closes":"12:30"}],"geo":{"@type":"GeoCoordinates","latitude":45.593909,"longitude":9.231725}}
 </script>
 </head>
 <body>
@@ -31,6 +35,10 @@
   <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 22s7-6.500 7-12a7 7 0 0 0-14 0c0 5.500 7 12 7 12z"/><circle cx="12" cy="10" r="2.500"/></symbol>
   <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.500 1.500a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol>
   <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="9" width="18" height="12" rx="1"/><path d="M12 9v12 M3 13h18 M12 9C9 9 7 7.500 7.500 5.500 8.500 3 12 6 12 9c0-3 3.500-6 4.500-3.500C17 7.500 15 9 12 9z"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6z M9 8V6a3 3 0 0 1 6 0v2"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14 M5 12h14"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12 M18 6L6 18"/></symbol>
 </defs></svg>
 
 <div id="intro" aria-hidden="true">
@@ -100,7 +108,7 @@
   </div></div>
 
   <!-- SERVIZI -->
-  <section class="sec" id="servizi">
+  <section class="sec compact" id="servizi">
     <div class="wrap">
       <p class="kick rv"><b>01</b> I nostri servizi</p>
       <h2 class="rv" style="--i:1">Due mondi, <em>un solo salone</em></h2>
@@ -114,30 +122,19 @@
     </div>
   </section>
 
-  <!-- PRODOTTI -->
-  <section class="sec" id="prodotti">
+  <!-- PRODOTTI LYCA (mini shop → WhatsApp) -->
+  <section class="sec green" id="prodotti">
+    <div class="leafs" aria-hidden="true"><svg class="ic"><use href="#i-leaf"/></svg><svg class="ic"><use href="#i-leaf"/></svg><svg class="ic"><use href="#i-leaf"/></svg></div>
     <div class="wrap">
-      <p class="kick rv"><b>02</b> Prodotti</p>
-      <h2 class="rv" style="--i:1">La linea <em>Lyca</em>, creata da noi</h2>
-      <p class="lead rv" style="--i:2">Oltre ai trattamenti, da Adry trovi <strong>Lyca</strong>, la nostra linea di prodotti, e una selezione di prodotti professionali per estetica e capelli scelti da noi.</p>
-      <div class="lyca rv" style="--i:3">
-        <div class="lyca-hero">
-          <span class="logo-script">Lyca</span>
-          <small>La linea Adry</small>
-          <p>Formule pensate per prolungare a casa l'effetto dei trattamenti in salone.</p>
-          <a class="btn solid magnetic" id="lycaAsk" href="#" target="_blank" rel="noopener"><svg class="ic"><use href="#i-wa"/></svg>Chiedi della linea Lyca</a>
-        </div>
-        <div class="pgrid" id="lycaGrid"></div>
+      <p class="kick rv"><b>02</b> Negozio</p>
+      <h2 class="rv" style="--i:1">Lyca, <em>la natura</em> sulla tua pelle</h2>
+      <p class="lead rv" style="--i:2">Creme e prodotti per la cura di viso, corpo e capelli, pensati da noi con ingredienti dal carattere naturale. <strong>Scegli i prodotti, aggiungili al carrello e invia l'ordine su WhatsApp</strong>: ti rispondiamo per conferma e ritiro in negozio.</p>
+      <div class="shop-bar rv" style="--i:3">
+        <div class="tabs" id="shopTabs" role="tablist" aria-label="Categoria prodotti"><i class="tab-ink"></i></div>
+        <label class="shop-search"><span class="sr">Cerca un prodotto</span><input id="shopSearch" type="search" placeholder="Cerca un prodotto…" autocomplete="off"></label>
       </div>
-      <h3 class="sub rv">Selezione professionale</h3>
-      <div class="tabs rv" role="tablist" aria-label="Categoria prodotti">
-        <button role="tab" class="on" data-pcat="tutti" aria-selected="true">Tutti</button>
-        <button role="tab" data-pcat="estetica" aria-selected="false">Estetica</button>
-        <button role="tab" data-pcat="capelli" aria-selected="false">Capelli</button>
-        <i class="tab-ink"></i>
-      </div>
-      <div class="pgrid" id="proGrid"></div>
-      <p class="mut rv note">Disponibilità e prezzi in salone o su WhatsApp. Ti consigliamo il prodotto giusto per la tua pelle e i tuoi capelli.</p>
+      <div class="pgrid shop-grid" id="shopGrid" aria-live="polite"></div>
+      <p class="mut rv note" id="shopNote">Ritiro in negozio negli orari di apertura. Per consigli sulla tua pelle scrivici su WhatsApp.</p>
     </div>
   </section>
 
@@ -183,7 +180,7 @@
     <div class="wrap">
       <p class="kick rv"><b>05</b> Prenota</p>
       <h2 class="rv" style="--i:1">Scegli giorno e ora, <em>al resto pensiamo noi</em></h2>
-      <p class="lead rv" style="--i:2">Seleziona il servizio, il giorno e l'orario: ti prepariamo il messaggio e si apre WhatsApp. Ti confermiamo l'appuntamento appena lo leggiamo.</p>
+      <p class="lead rv" style="--i:2">Seleziona il servizio, il giorno e l'orario che preferisci: ti prepariamo il messaggio e si apre WhatsApp. Estetica e parrucchiere sono su appuntamento, anche fuori dagli orari del negozio: confermiamo noi la disponibilità.</p>
       <div class="book rv" style="--i:3">
         <ol class="steps" id="steps"><li class="on">Servizio</li><li>Data</li><li>Orario</li><li>Invia</li></ol>
         <div class="book-grid">
@@ -282,6 +279,7 @@
           <a class="row" href="https://www.instagram.com/adry_beauty/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-sparkle"/></svg><span><b>Instagram</b>@adry_beauty</span></a>
           <a class="row" id="waRow" href="#" target="_blank" rel="noopener"><svg class="ic"><use href="#i-wa"/></svg><span><b>Scrivici su WhatsApp</b>Risposta appena possibile</span></a>
           <div class="hours" id="hours"></div>
+          <p class="mut hours-note">Gli orari sono quelli del <strong>negozio</strong>. <strong>Estetica e parrucchiere</strong> lavorano su appuntamento e <strong>anche fuori da questi orari</strong>: scrivici su WhatsApp e troviamo insieme il momento giusto.</p>
           <a class="btn ghost magnetic" href="https://www.google.com/maps/dir/?api=1&destination=45.593909,9.231725" target="_blank" rel="noopener">Indicazioni stradali</a>
           <a class="btn ghost magnetic" href="https://maps.app.goo.gl/JK6FDJvfU5kPSqdN7" target="_blank" rel="noopener">Leggi le recensioni su Google</a>
         </div>
@@ -301,9 +299,25 @@
   <p class="mut">© <span id="yr"></span> Adry. Tutti i diritti riservati.</p>
 </footer>
 
+<button class="cart-btn" id="cartBtn" type="button" aria-label="Apri il carrello" hidden><svg class="ic"><use href="#i-bag"/></svg><span>Carrello</span><b id="cartCount">0</b></button>
+<div class="cart-ov" id="cartOv" hidden></div>
+<aside class="cart" id="cart" aria-hidden="true" aria-labelledby="cartT">
+  <div class="cart-h"><h3 id="cartT">Il tuo carrello</h3><button type="button" id="cartX" aria-label="Chiudi"><svg class="ic"><use href="#i-x"/></svg></button></div>
+  <div class="cart-list" id="cartList"></div>
+  <div class="cart-f">
+    <div class="cart-tot"><span>Totale</span><b id="cartTot">—</b></div>
+    <label class="fld">Il tuo nome<input id="cartName" type="text" autocomplete="given-name" placeholder="Es. Giulia"></label>
+    <a class="btn wa" id="cartSend" href="#" target="_blank" rel="noopener" aria-disabled="true"><svg class="ic"><use href="#i-wa"/></svg>Ordina su WhatsApp</a>
+    <button type="button" class="cart-clear" id="cartClear">Svuota il carrello</button>
+    <small>Non è un pagamento: ti confermiamo disponibilità e ritiro su WhatsApp.</small>
+  </div>
+</aside>
+<div class="toast" id="toast" role="status"></div>
+
 <a class="fab" id="fab" href="#" target="_blank" rel="noopener" aria-label="Scrivici su WhatsApp"><svg class="ic"><use href="#i-wa"/></svg><span>Prenota</span></a>
 
 <script src="js/data.js"></script>
+<script src="js/lyca-fallback.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
