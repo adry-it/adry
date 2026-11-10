@@ -1,9 +1,17 @@
-(() => {
+(async () => {
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const hover = matchMedia('(hover:hover)').matches;
   const C = window.ADRY;
+  // I servizi sono gestiti dal portale admin; in caso di rete non disponibile resta il catalogo di fallback.
+  try {
+    const servicesResponse = await fetch('data/services.json', { cache: 'no-cache' });
+    if (servicesResponse.ok) {
+      const servicesData = await servicesResponse.json();
+      if (Array.isArray(servicesData.items)) C.services = servicesData.items;
+    }
+  } catch (error) { console.warn('Uso i servizi di riserva:', error); }
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const pad = n => String(n).padStart(2, '0');
   const iso = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
@@ -199,16 +207,46 @@
   const slugify = t => String(t).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
   function shopCard(p) {
-    const im = img0(p), out = !p.available, q = cart[p.id] || 0;
+    const out = !p.available, q = cart[p.id] || 0;
     const price = hasPrice(p) ? `<span class="pc-price">${eur(Number(p.price))}</span>` : '<span class="pc-price ask">Su richiesta</span>';
     const act = out ? '<button class="add" type="button" disabled>Esaurito</button>'
-      : q ? qtyHtml(p.id, q) : `<button class="add" type="button" data-add="${esc(p.id)}" aria-label="Aggiungi ${esc(p.name)} al carrello">${icon('plus')}<span>Aggiungi</span></button>`;
-    return `<article class="pcard${out ? ' out' : ''}" data-id="${esc(p.id)}">
-      <div class="pc-img">${p.is_new && !out ? '<span class="tag">Novità</span>' : ''}${out ? '<span class="tag off">Esaurito</span>' : ''}${im ? `<img src="${esc(im)}" alt="${esc(p.name)}" loading="lazy" decoding="async">` : icon(CAT_ICON[p.category] || 'leaf')}</div>
-      <div class="pc-body"><span class="pc-cat">${esc(p.category)}</span><h4>${esc(p.name)}</h4>${p.size ? `<span class="pc-size">${esc(p.size)}</span>` : ''}<p>${esc(p.description)}</p>
-        <div class="pc-foot">${price}<span class="pc-act">${act}</span></div></div></article>`;
+      : q ? qtyHtml(p.id, q) : `<button class="add" type="button" data-add="${esc(p.id)}" aria-label="Acquista ${esc(p.name)}">${icon('bag')}<span>Acquista</span></button>`;
+    return `<article class="pcard product-compact${out ? ' out' : ''}" data-id="${esc(p.id)}">
+      <div class="pc-body">
+        <div class="product-labels">${p.is_new && !out ? '<span class="tag">Novità</span>' : ''}${out ? '<span class="tag off">Esaurito</span>' : ''}<span class="pc-cat">${esc(p.category)}</span></div>
+        <h4><button class="product-detail-link" type="button" data-detail="${esc(p.id)}">${esc(p.name)}</button></h4>
+        <div class="pc-foot">${price}<span class="pc-act">${act}</span></div>
+      </div></article>`;
   }
   const qtyHtml = (id, q) => `<span class="qty"><button type="button" data-dec="${esc(id)}" aria-label="Diminuisci">${icon('minus')}</button><b>${q}</b><button type="button" data-inc="${esc(id)}" aria-label="Aumenta">${icon('plus')}</button></span>`;
+
+  // Scheda prodotto: la descrizione e gli eventuali formati si vedono solo entrando nel prodotto.
+  const detailLayer = document.createElement('div');
+  detailLayer.className = 'product-detail-overlay';
+  detailLayer.hidden = true;
+  detailLayer.innerHTML = `<section class="product-detail" role="dialog" aria-modal="true" aria-labelledby="productDetailTitle">
+    <button class="product-detail-close" type="button" aria-label="Chiudi">×</button>
+    <div class="product-detail-content"></div>
+  </section>`;
+  document.body.appendChild(detailLayer);
+  function openProductDetail(id) {
+    const p = prodById(id); if (!p) return;
+    const im = img0(p);
+    detailLayer.querySelector('.product-detail-content').innerHTML = `
+      ${im ? `<img class="product-detail-image" src="${esc(im)}" alt="${esc(p.name)}">` : ''}
+      <span class="pc-cat">${esc(p.category)}</span>
+      <h2 id="productDetailTitle">${esc(p.name)}</h2>
+      ${p.size ? `<p class="product-detail-size">${esc(p.size)}</p>` : ''}
+      <p class="product-detail-description">${esc(p.description || 'Per informazioni sul prodotto, contattaci su WhatsApp.')}</p>
+      <div class="pc-foot">${hasPrice(p) ? `<span class="pc-price">${eur(Number(p.price))}</span>` : '<span class="pc-price ask">Su richiesta</span>'}
+      ${p.available === false ? '<span class="tag off">Esaurito</span>' : `<button class="add" type="button" data-add="${esc(p.id)}">${icon('bag')}<span>Acquista</span></button>`}</div>`;
+    detailLayer.hidden = false; document.body.classList.add('lock');
+    detailLayer.querySelector('.product-detail-close').focus();
+  }
+  function closeProductDetail() { detailLayer.hidden = true; document.body.classList.remove('lock'); }
+  detailLayer.addEventListener('click', e => { if (e.target === detailLayer || e.target.closest('.product-detail-close')) closeProductDetail(); });
+  document.addEventListener('click', e => { const b = e.target.closest('[data-detail]'); if (b) openProductDetail(b.dataset.detail); });
+  addEventListener('keydown', e => { if (e.key === 'Escape' && !detailLayer.hidden) closeProductDetail(); });
 
   function renderShop() {
     const q = $('#shopSearch').value.trim().toLowerCase();
