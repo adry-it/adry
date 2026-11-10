@@ -36,7 +36,6 @@ window.ADRY = {
     { id: 'manicure', cat: 'estetica', name: 'Manicure & pedicure', desc: 'Cura di mani e piedi, smalto classico o semipermanente.', icon: 'sparkle' },
     { id: 'taglio', cat: 'parrucchiere', name: 'Taglio & piega', desc: 'Consulenza sul taglio più adatto al tuo viso e al tuo stile.', icon: 'scissors' },
     { id: 'colore', cat: 'parrucchiere', name: 'Colore & riflessi', desc: 'Tinta, colpi di sole e sfumature su misura, con prodotti che rispettano il capello.', icon: 'drop' },
-    { id: 'trattamento', cat: 'parrucchiere', name: 'Trattamento ristrutturante', desc: 'Nutre e ripara i capelli spenti o stressati, per più luce e morbidezza.', icon: 'leaf' },
-    { id: 'acconciatura', cat: 'parrucchiere', name: 'Acconciature da cerimonia', desc: 'Raccolti e onde per matrimoni, feste e serate speciali.', icon: 'lotus' }
+    { id: 'trattamento', cat: 'parrucchiere', name: 'Trattamento ristrutturante', desc: 'Nutre e ripara i capelli spenti o stressati, per più luce e morbidezza.', icon: 'leaf' }
   ]
 };
