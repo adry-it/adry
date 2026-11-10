@@ -1,5 +1,4 @@
-# Gestione prodotti Lyca (Sveltia CMS) — si apre da <sito>/admin/ anche da telefono.
-# Accesso: account GitHub con permesso di scrittura sul repository.
+# Portale amministrativo Adry — gestione semplice del catalogo Lyca.
 backend:
   name: github
   repo: adry-it/adry
@@ -7,7 +6,6 @@ backend:
 
 locale: it
 
-# Foto caricate dal telefono: ridimensionate e convertite in WebP
 media_folder: /assets/images/lyca
 public_folder: assets/images/lyca
 media_libraries:
@@ -22,30 +20,70 @@ media_libraries:
           height: 1000
 
 collections:
-  - name: catalogo
-    label: Prodotti Lyca
+  - name: products
+    label: Prodotti
     files:
       - name: lyca
-        label: Catalogo
+        label: Catalogo prodotti
         file: /data/lyca.json
         format: json
         fields:
-          - label: Prodotti (trascina per cambiare l'ordine)
+          - label: Elenco prodotti (trascina per cambiare l'ordine)
             name: items
             widget: list
             label_singular: prodotto
             summary: "{{fields.name}} — {{fields.category}}"
             fields:
               - { label: Codice interno, name: id, widget: hidden, required: false }
-              - { label: Nome, name: name, widget: string }
-              - { label: Categoria, name: category, widget: select, options: [Viso, Corpo, Capelli, Mani e piedi] }
-              - { label: "Formato (es. 50 ml)", name: size, widget: string, required: false }
+              - { label: Nome prodotto, name: name, widget: string }
+              - label: Categoria
+                name: category
+                widget: relation
+                collection: categories
+                search_fields: [title]
+                value_field: title
+                display_fields: [title]
+                required: true
+              - label: Formato
+                name: size
+                widget: relation
+                collection: formats
+                search_fields: [title]
+                value_field: title
+                display_fields: [title]
+                required: false
               - { label: Descrizione, name: description, widget: text, required: false }
-              - { label: "Prezzo (€) — vuoto = «Prezzo su richiesta»", name: price, widget: number, value_type: float, min: 0, required: false }
+              - { label: Prezzo (€), name: price, widget: number, value_type: float, min: 0, required: false }
               - { label: Novità, name: is_new, widget: boolean, default: false }
-              - { label: "Disponibile (spegni se è esaurito)", name: available, widget: boolean, default: true }
-              - label: "Foto (la prima è la copertina)"
+              - { label: Disponibile, name: available, widget: boolean, default: true }
+              - label: Foto prodotto
                 name: images
                 widget: image
                 multiple: true
                 required: false
+
+  - name: categories
+    label: Categorie
+    label_singular: categoria
+    folder: /data/categories
+    create: true
+    delete: true
+    extension: yml
+    format: yaml
+    identifier_field: title
+    summary: "{{title}}"
+    fields:
+      - { label: Nome categoria, name: title, widget: string }
+
+  - name: formats
+    label: Formati
+    label_singular: formato
+    folder: /data/formats
+    create: true
+    delete: true
+    extension: yml
+    format: yaml
+    identifier_field: title
+    summary: "{{title}}"
+    fields:
+      - { label: Formato / grammatura (es. 10 gr, 50 ml), name: title, widget: string }
